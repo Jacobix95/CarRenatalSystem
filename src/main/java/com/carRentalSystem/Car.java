@@ -17,5 +17,6 @@ public class Car {
     private double price;
     private boolean available;
 
-    public Car() {}
+    public Car() {
+    }
 }
