@@ -1,4 +1,4 @@
-package com.carRentalSystem;
+package com.carRentalSystem.Model;
 
 import lombok.Getter;
 import lombok.Setter;
