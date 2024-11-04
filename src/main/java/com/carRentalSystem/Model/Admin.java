@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Admin extends User {
 
-    private Operation[] operations = new Operation[] {new AddNewAdmin()};
+    private Operation[] operations = new Operation[]{new AddNewAdmin()};
 
     public Admin() {
         super();

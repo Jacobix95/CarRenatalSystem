@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class AddNewAdmin implements Operation {
+public class AddNewClient implements Operation {
 
     @Override
     public void operation(Database database, Scanner scanner, User user) {
@@ -31,7 +31,7 @@ public class AddNewAdmin implements Operation {
             System.out.println("Confirm Password:");
             confirmPassword = scanner.next();
         }
-        int accType = 1;
+        int accType = 0;
 
         try {
             ResultSet rs = database.getStatement().executeQuery("SELECT COUNT(*);");
@@ -43,7 +43,7 @@ public class AddNewAdmin implements Operation {
                     " ('" + ID + "','" + firstName + "','" + lastName + "','" + email + "','" + phoneNumber + "'," +
                     "'" + password + "','" + accType + "');";
             database.getStatement().executeUpdate(instert);
-            System.out.println("Successfully added Admin\n");
+            System.out.println("Successfully added Client\n");
 
         } catch (SQLException e) {
             e.printStackTrace();
