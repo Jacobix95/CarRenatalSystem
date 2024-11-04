@@ -3,6 +3,7 @@ package com.carRentalSystem.Model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Scanner;
 import java.util.UUID;
 
 @Getter
@@ -19,5 +20,5 @@ public abstract class User {
     public User() {
     }
 
-    public abstract void showList();
+    public abstract void showList(Database database, Scanner scanner);
 }

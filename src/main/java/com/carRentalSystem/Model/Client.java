@@ -1,5 +1,7 @@
 package com.carRentalSystem.Model;
 
+import java.util.Scanner;
+
 public class Client extends User {
 
     public Client() {
@@ -7,7 +9,7 @@ public class Client extends User {
     }
 
     @Override
-    public void showList() {
+    public void showList(Database database, Scanner scanner) {
         System.out.println("\n1. View Cars");
         System.out.println("2. Rental Car");
         System.out.println("3. Return Car");
