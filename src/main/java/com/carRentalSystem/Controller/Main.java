@@ -21,6 +21,10 @@ public class Main {
         System.out.println("Welcome to CarRentalSystem");
         System.out.println("Enter your email:\n(-1) to create new account");
         String email = scanner.nextLine();
+        if(email.equals("-1")) {
+            new AddNewAccount(0).operation(database,scanner,null);
+            return;
+        }
         System.out.println("Enter your password:");
         String password = scanner.nextLine();
 
@@ -62,11 +66,17 @@ public class Main {
             e.printStackTrace();
         }
 
+        boolean loggedIn = false;
         for (User user : users) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 System.out.println("Welcome " + user.getFirstName() + " " + user.getLastName());
+                loggedIn = true;
                 user.showList(database, scanner);
             }
+        }
+        if (!loggedIn) {
+            System.out.println("You are not logged in");
+            scanner.close();
         }
     }
 }

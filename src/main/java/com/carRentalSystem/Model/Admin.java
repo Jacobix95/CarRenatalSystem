@@ -34,16 +34,20 @@ public class Admin extends User {
         System.out.println("6. Show Rents");
         System.out.println("7. Exit\n");
 
-        try {
-            int i = scanner.nextInt() - 1;
-            if (i < 0 || i >= operations.length) {
-                System.out.println("Invalid option. Please try again.");
-            } else {
-                operations[i].operation(database, scanner, this);
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                int i = scanner.nextInt() - 1;
+                if (i < 0 || i >= operations.length) {
+                    System.out.println("Invalid option. Please try again.");
+                } else {
+                    operations[i].operation(database, scanner, this);
+                    validInput = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a number.");
-            scanner.nextLine();
         }
     }
 }
