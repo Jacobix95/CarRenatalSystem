@@ -26,6 +26,11 @@ public class AddNewAccount implements Operation {
         String lastName = scanner.next();
         System.out.println("Enter Email Address:");
         String email = scanner.next();
+        while (emailExists(email, database)) {
+            System.out.println("This email is already in use. Please use a different email.");
+            System.out.println("Enter Email Address:");
+            email = scanner.next();
+        }
         System.out.println("Enter Phone Number:");
         String phoneNumber = scanner.next();
         System.out.println("Enter Password:");
@@ -57,5 +62,21 @@ public class AddNewAccount implements Operation {
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
+    }
+
+    private boolean emailExists(String email, Database database) {
+        String sql = "SELECT COUNT(*) FROM users WHERE Email = ?";
+        try (Connection conn = database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+        return false;
     }
 }

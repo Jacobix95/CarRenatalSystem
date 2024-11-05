@@ -51,8 +51,8 @@ public class Main {
                         user = new Admin();
                         break;
                     default:
-                        user = new Client();
-                        break;
+                        System.out.println("Account does not exist");
+                        return;
                 }
                 user.setId(ID);
                 user.setFirstName(firstName);
