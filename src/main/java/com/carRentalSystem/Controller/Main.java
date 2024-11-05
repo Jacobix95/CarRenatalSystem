@@ -5,24 +5,31 @@ import com.carRentalSystem.Model.Client;
 import com.carRentalSystem.Model.Database;
 import com.carRentalSystem.Model.User;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Login {
+public class Main {
 
-    public Login(Database database, Scanner scanner) {
-        System.out.println("Enter your email:");
+    public static void main(String[] args) {
+        Database database = new Database();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to CarRentalSystem");
+        System.out.println("Enter your email:\n(-1) to create new account");
         String email = scanner.nextLine();
         System.out.println("Enter your password:");
         String password = scanner.nextLine();
 
         ArrayList<User> users = new ArrayList<>();
 
-        try {
-            String select = "SELECT * FROM 'users';";
-            ResultSet rs = database.getStatement().executeQuery(select);
+        try (Connection conn = database.getConnection();
+             Statement stmt = conn.createStatement()) {
+            String select = "SELECT * FROM `users`;";
+            ResultSet rs = stmt.executeQuery(select);
             while (rs.next()) {
                 User user;
                 int ID = rs.getInt("ID");
@@ -36,7 +43,6 @@ public class Login {
                     case 0:
                         user = new Client();
                         break;
-
                     case 1:
                         user = new Admin();
                         break;
@@ -55,8 +61,9 @@ public class Login {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         for (User user : users) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)){
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 System.out.println("Welcome " + user.getFirstName() + " " + user.getLastName());
                 user.showList(database, scanner);
             }

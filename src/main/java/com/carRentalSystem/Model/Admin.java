@@ -1,15 +1,26 @@
 package com.carRentalSystem.Model;
 
-import com.carRentalSystem.Controller.AddNewAdmin;
+import com.carRentalSystem.Controller.AddNewAccount;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Admin extends User {
 
-    private Operation[] operations = new Operation[]{new AddNewAdmin()};
+    private Operation[] operations;
 
     public Admin() {
         super();
+        // Initialize all operations matching the menu items
+        this.operations = new Operation[]{
+                //new AddNewCar(),
+                //new ViewCar(),
+                //new UpdateCar(),
+                //new DeleteCar(),
+                new AddNewAccount(1),
+                //new ShowRents(),
+                //new ExitOperation()
+        };
     }
 
 
@@ -23,7 +34,16 @@ public class Admin extends User {
         System.out.println("6. Show Rents");
         System.out.println("7. Exit\n");
 
-        int i = scanner.nextInt();
-        operations[i].operation(database, scanner, this);
+        try {
+            int i = scanner.nextInt() - 1;
+            if (i < 0 || i >= operations.length) {
+                System.out.println("Invalid option. Please try again.");
+            } else {
+                operations[i].operation(database, scanner, this);
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.nextLine();
+        }
     }
 }

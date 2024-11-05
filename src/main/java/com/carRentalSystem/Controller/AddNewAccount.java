@@ -4,11 +4,19 @@ import com.carRentalSystem.Model.Database;
 import com.carRentalSystem.Model.Operation;
 import com.carRentalSystem.Model.User;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class AddNewAdmin implements Operation {
+public class AddNewAccount implements Operation {
+
+    private int accType;
+
+    public AddNewAccount(int accType) {
+        this.accType = accType;
+    }
 
     @Override
     public void operation(Database database, Scanner scanner, User user) {
@@ -31,24 +39,23 @@ public class AddNewAdmin implements Operation {
             System.out.println("Confirm Password:");
             confirmPassword = scanner.next();
         }
-        int accType = 1;
-
-        try {
-            ResultSet rs = database.getStatement().executeQuery("SELECT COUNT(*);");
-            rs.next();
-            int ID = rs.getInt("COUNT(*)") - 1;
-
-            String instert = "INSERT INTO 'users' ('ID', 'First Name', 'Last Name'," +
-                    " 'Email Address', 'Phone Number', 'Password', 'Type') VALUES" +
-                    " ('" + ID + "','" + firstName + "','" + lastName + "','" + email + "','" + phoneNumber + "'," +
-                    "'" + password + "','" + accType + "');";
-            database.getStatement().executeUpdate(instert);
-            System.out.println("Successfully added Admin\n");
-
+        String sql = "INSERT INTO users (FirstName, LastName, Email, PhoneNumber, Password, Type) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, firstName);
+            ps.setString(2, lastName);
+            ps.setString(3, email);
+            ps.setString(4, phoneNumber);
+            ps.setString(5, password);
+            ps.setInt(6, accType);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Account created successfully\n");
+            } else {
+                System.out.println("No account was created. Please check your input and try again.");
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Database error: " + e.getMessage());
         }
-
-
     }
 }
