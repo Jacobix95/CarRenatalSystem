@@ -2,6 +2,8 @@ package com.carRentalSystem.Model;
 
 import com.carRentalSystem.Controller.AddNewAccount;
 import com.carRentalSystem.Controller.AddNewCar;
+import com.carRentalSystem.Controller.UpdateCar;
+import com.carRentalSystem.Controller.ViewCars;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -15,8 +17,8 @@ public class Admin extends User {
         // Initialize all operations matching the menu items
         this.operations = new Operation[]{
                 new AddNewCar(),
-                //new ViewCar(),
-                //new UpdateCar(),
+                new ViewCars(),
+                new UpdateCar(),
                 //new DeleteCar(),
                 new AddNewAccount(1),
                 //new ShowRents(),
@@ -28,7 +30,7 @@ public class Admin extends User {
     @Override
     public void showList(Database database, Scanner scanner) {
         System.out.println("\n1. Add New Car");
-        System.out.println("2. View Car");
+        System.out.println("2. View Cars");
         System.out.println("3. Update Car");
         System.out.println("4. Delete Car");
         System.out.println("5. Add New Admin");
