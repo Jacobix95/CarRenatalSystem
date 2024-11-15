@@ -21,8 +21,8 @@ public class Main {
         System.out.println("Welcome to CarRentalSystem");
         System.out.println("Enter your email:\n(-1) to create new account");
         String email = scanner.nextLine();
-        if(email.equals("-1")) {
-            new AddNewAccount(0).operation(database,scanner,null);
+        if (email.equals("-1")) {
+            new AddNewAccount(0).operation(database, scanner, null);
             return;
         }
         System.out.println("Enter your password:");
