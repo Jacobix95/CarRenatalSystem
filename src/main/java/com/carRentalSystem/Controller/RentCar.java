@@ -67,7 +67,6 @@ public class RentCar implements Operation {
                         int rentalRows = rentPS.executeUpdate();
 
                         if (rentalRows > 0) {
-                            // Update car availability
                             updateCarPS.setInt(1, carID);
                             int updateRows = updateCarPS.executeUpdate();
 
