@@ -1,9 +1,6 @@
 package com.carRentalSystem.Model;
 
-import com.carRentalSystem.Controller.AddNewAccount;
-import com.carRentalSystem.Controller.AddNewCar;
-import com.carRentalSystem.Controller.UpdateCar;
-import com.carRentalSystem.Controller.ViewCars;
+import com.carRentalSystem.Controller.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -14,12 +11,11 @@ public class Admin extends User {
 
     public Admin() {
         super();
-        // Initialize all operations matching the menu items
         this.operations = new Operation[]{
                 new AddNewCar(),
                 new ViewCars(),
                 new UpdateCar(),
-                //new DeleteCar(),
+                new DeleteCar(),
                 new AddNewAccount(1),
                 //new ShowRents(),
                 //new ExitOperation()
