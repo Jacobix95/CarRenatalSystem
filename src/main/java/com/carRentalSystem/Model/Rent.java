@@ -17,7 +17,7 @@ public class Rent {
     private LocalDateTime dateTime;
     private int hours;
     private double total;
-    private String status;
+    private int status;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/dd/MM hh:mm");
 
     public Rent() {
