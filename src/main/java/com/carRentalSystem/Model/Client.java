@@ -1,9 +1,6 @@
 package com.carRentalSystem.Model;
 
-import com.carRentalSystem.Controller.RentCar;
-import com.carRentalSystem.Controller.ReturnCar;
-import com.carRentalSystem.Controller.ShowUserRents;
-import com.carRentalSystem.Controller.ViewCars;
+import com.carRentalSystem.Controller.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -14,13 +11,14 @@ public class Client extends User {
 
     public Client() {
         super();
-     this.operations = new Operation[]{
-             new ViewCars(),
-             new RentCar(),
-             new ReturnCar(),
-             new ShowUserRents(getId()),
+        this.operations = new Operation[]{
+                new ViewCars(),
+                new RentCar(),
+                new ReturnCar(),
+                new ShowUserRents(getId()),
+                new EditUserData()
 
-     };
+        };
     }
 
     @Override
