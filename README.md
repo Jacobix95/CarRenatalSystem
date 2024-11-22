@@ -4,6 +4,6 @@
 # Language
 Java 21
 # Technologies used
--MySQL,
--XAMPP ,
--Lombok
+- MySQL,
+- XAMPP ,
+- Lombok
