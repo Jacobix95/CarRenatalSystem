@@ -23,29 +23,32 @@ public class Client extends User {
 
     @Override
     public void showList(Database database, Scanner scanner) {
-        System.out.println("\n1. View Cars");
-        System.out.println("2. Rental Car");
-        System.out.println("3. Return Car");
-        System.out.println("4. Show My Rents");
-        System.out.println("5. Edit My Data");
-        System.out.println("6. Exit\n");
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("\nClient Menu:");
+            System.out.println("1. View Cars");
+            System.out.println("2. Rent a Car");
+            System.out.println("3. Return a Car");
+            System.out.println("4. Show My Rents");
+            System.out.println("5. Edit My Data");
+            System.out.println("6. Exit\n");
 
-        boolean validInput = false;
-        while (!validInput) {
             try {
-                int i = scanner.nextInt() - 1;
-                if (i < 0 || i >= operations.length) {
-                    System.out.println("Invalid option. Please try again.");
+                System.out.print("Select an option: ");
+                int choice = scanner.nextInt() - 1;
+
+                if (choice == 5) {
+                    exit = true;
+                    System.out.println("Thank you for visiting us! Good bye!");
+                } else if (choice >= 0 && choice < operations.length) {
+                    operations[choice].operation(database, scanner, this);
                 } else {
-                    operations[i].operation(database, scanner, this);
-                    validInput = true;
+                    System.out.println("Invalid option. Please try again.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
                 scanner.nextLine();
-
             }
-
         }
     }
 }
