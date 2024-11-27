@@ -6,7 +6,7 @@ public class JLabel extends javax.swing.JLabel {
 
     public JLabel(String text, int fontSize) {
         super(text);
-        setFont(new Font("SansSerif", Font.BOLD, fontSize));
+        setFont(new Font("Calibri", Font.BOLD, fontSize));
         setBackground(null);
         setHorizontalAlignment(JLabel.CENTER);
     }

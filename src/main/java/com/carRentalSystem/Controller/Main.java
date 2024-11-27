@@ -38,15 +38,15 @@ public class Main {
         panel.setBackground(null);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        panel.add(new JLabel("Email", 22));
-        JTextField email = new JTextField(22);
+        panel.add(new JLabel("Email", 25));
+        JTextField email = new JTextField(25);
         panel.add(email);
 
-        panel.add(new JLabel("Password", 22));
-        JPasswordField password = new JPasswordField(22);
+        panel.add(new JLabel("Password", 25));
+        JPasswordField password = new JPasswordField(25);
         panel.add(password);
 
-        JButton createAcc = new JButton("Create New Account", 22);
+        JButton createAcc = new JButton("Create New Account", 25);
         panel.add(createAcc);
 
         ArrayList<User> users = new ArrayList<>();
@@ -91,6 +91,17 @@ public class Main {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if (email.getText().equals("") ) {
+                    JOptionPane.showMessageDialog(frame, "Email cannot be empty");
+                    return;
+                }
+
+                if (password.getText().equals("")) {
+                    JOptionPane.showMessageDialog(frame, "Password cannot be empty");
+                    return;
+                }
+
                 boolean loggedIn = false;
                 for (User user : users) {
                     if (user.getEmail().equals(email.getText()) && user.getPassword().equals(password.getText())) {
@@ -101,6 +112,7 @@ public class Main {
                     }
                 }
                 if (!loggedIn) {
+                    JOptionPane.showMessageDialog(frame, "Email or Password does not match");
                     System.out.println("You are not logged in");
 
                 }
