@@ -11,12 +11,13 @@ import com.carRentalSystem.View.JPasswordField;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main {
 
@@ -33,7 +34,7 @@ public class Main {
         title.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         frame.add(title, BorderLayout.NORTH);
 
-        JPanel panel = new JPanel(new GridLayout(3, 2, 15,15));
+        JPanel panel = new JPanel(new GridLayout(3, 2, 15, 15));
         panel.setBackground(null);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
@@ -47,25 +48,6 @@ public class Main {
 
         JButton createAcc = new JButton("Create New Account", 22);
         panel.add(createAcc);
-
-        JButton login = new JButton("Login", 22);
-        panel.add(login);
-
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setVisible(true);
-
-
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.println("Welcome to CarRentalSystem");
-//        System.out.println("Enter your email:\n(-1) to create new account");
-//        String email = scanner.nextLine();
-//        if (email.equals("-1")) {
-//            new AddNewAccount(0).operation(database, scanner, null);
-//            return;
-//        }
-//        System.out.println("Enter your password:");
-//        String password = scanner.nextLine();
 
         ArrayList<User> users = new ArrayList<>();
 
@@ -105,17 +87,30 @@ public class Main {
             e.printStackTrace();
         }
 
-        boolean loggedIn = false;
-        for (User user : users) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-                System.out.println("Welcome " + user.getFirstName() + " " + user.getLastName());
-                loggedIn = true;
+        JButton login = new JButton("Login", 22);
+        login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean loggedIn = false;
+                for (User user : users) {
+                    if (user.getEmail().equals(email.getText()) && user.getPassword().equals(password.getText())) {
+                        System.out.println("Welcome " + user.getFirstName() + " " + user.getLastName());
+                        loggedIn = true;
+                        System.out.println("Logged in successfully");
 //                user.showList(database, scanner);
+                    }
+                }
+                if (!loggedIn) {
+                    System.out.println("You are not logged in");
+
+                }
             }
-        }
-        if (!loggedIn) {
-            System.out.println("You are not logged in");
-//            scanner.close();
-        }
+        });
+        panel.add(login);
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setVisible(true);
+
+
     }
 }
